@@ -4,7 +4,7 @@ import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.King;
-import chess.pieces.Rook;
+import chess.pieces.Queen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,11 +189,11 @@ public class ChessMatch {  // Regras do jogo
 	}
 
 	private void initialSetup() {
-		placenewPiece('h', 7, new Rook(board, Color.WHITE));
-		placenewPiece('d', 1, new Rook(board, Color.WHITE));
+		placenewPiece('h', 7, new Queen(board, Color.WHITE));
+		placenewPiece('d', 1, new Queen(board, Color.WHITE));
 		placenewPiece('e', 1, new King(board, Color.WHITE));
 
-		placenewPiece('b', 8, new Rook(board, Color.BLACK));
+		placenewPiece('b', 8, new Queen(board, Color.BLACK));
 		placenewPiece('a', 8, new King(board, Color.BLACK));
 	}
 }
