@@ -4,6 +4,7 @@ import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.King;
+import chess.pieces.Pawn;
 import chess.pieces.Queen;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class ChessMatch {  // Regras do jogo
 	private Color currentPlayer;
 	private boolean check;
 	private boolean checkMate;
+	private ChessPiece enPassantVulnerable;
+
 
 	public ChessMatch() {
 		board = new Board(8, 8); // O tabuleiro vai ter 8x8.
@@ -39,6 +42,10 @@ public class ChessMatch {  // Regras do jogo
 
 	public boolean getCheckMate() {
 		return getCheck();
+	}
+
+	public ChessPiece getEnPassantVulnerable() {
+		return enPassantVulnerable;
 	}
 
 	public ChessPiece[][] getPieces() {
@@ -69,13 +76,20 @@ public class ChessMatch {  // Regras do jogo
 			undoMove(source, target, capturePiece);
 			throw new ChessException("You can't put yourself in check");
 		}
-
+		ChessPiece movedPiece = (ChessPiece) board.piece(target);
 		check = testCheck(opponent(currentPlayer));
 
 		if (testCheckMate(opponent(currentPlayer))) {
 			checkMate = true;
 		} else {
 			nextTurn();
+		}
+
+		// #SpecialMove - En Passant
+		if (movedPiece instanceof Pawn && (target.getRow() == source.getRow() - 2 || target.getRow() == source.getRow() + 2)) {
+			enPassantVulnerable = movedPiece;
+		} else {
+			enPassantVulnerable = null;
 		}
 
 		return (ChessPiece) capturePiece;
