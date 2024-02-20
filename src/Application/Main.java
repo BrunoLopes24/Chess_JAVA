@@ -40,8 +40,12 @@ public class Main {
 
 				if (chessMatch.getPromoted() != null) {
 					System.out.println("Enter a piece for Promotion (B/N/R/Q):");
-					String type = sc.nextLine();
-					chessMatch.replacePromotedPiece(type);
+					String typePiece = sc.nextLine();
+					while (!typePiece.equals("B") && !typePiece.equals("N") && !typePiece.equals("R") && !typePiece.equals("Q")){
+						System.out.println("Invalid value! Enter a piece for Promotion (B/N/R/Q):");
+						typePiece = sc.nextLine();
+					}
+					chessMatch.replacePromotedPiece(typePiece);
 				}
 
 
